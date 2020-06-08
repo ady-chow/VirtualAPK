@@ -120,6 +120,7 @@
 #######################################################################
 -keep class com.didi.virtualapk.internal.VAInstrumentation { *; }
 -keep class com.didi.virtualapk.internal.PluginContentResolver { *; }
+-keep class com.didi.virtualapk.internal.PluginContext { *; }
 
 -dontwarn com.didi.virtualapk.**
 -dontwarn android.**

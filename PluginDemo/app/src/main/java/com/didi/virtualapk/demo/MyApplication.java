@@ -1,32 +1,42 @@
 package com.didi.virtualapk.demo;
 
-import com.didi.virtualapk.demo.utils.MyUtils;
-
 import android.app.Application;
+import android.content.Context;
 import android.os.Process;
 import android.util.Log;
+import com.didi.virtualapk.demo.utils.MyUtils;
+import com.didi.virtualapk.internal.PluginContext;
 
 public class MyApplication extends Application {
 
-    private static final String TAG = "MyApplication";
+  private static final String TAG = "MyApplication";
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        String processName = MyUtils.getProcessName(getApplicationContext(),
-                Process.myPid());
-        Log.d(TAG, "application start, process name:" + processName);
-        new Thread(new Runnable() {
+  public static Context mHostContext;
 
-            @Override
-            public void run() {
+  @Override
+  protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
+    mHostContext = ((PluginContext) base).getHostContext();
+  }
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    String processName = MyUtils.getProcessName(getApplicationContext(), Process.myPid());
+    Log.d(TAG, "application start, process name:" + processName);
+    new Thread(
+            new Runnable() {
+
+              @Override
+              public void run() {
                 doWorkInBackground();
-            }
-        }).start();
-    }
+              }
+            })
+        .start();
+  }
 
-    private void doWorkInBackground() {
-        // init binder pool
-        //BinderPool.getInsance(getApplicationContext());
-    }
+  private void doWorkInBackground() {
+    // init binder pool
+    // BinderPool.getInsance(getApplicationContext());
+  }
 }
