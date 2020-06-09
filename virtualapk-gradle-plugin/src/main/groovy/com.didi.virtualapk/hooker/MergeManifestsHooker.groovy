@@ -132,10 +132,15 @@ class MergeManifestsHooker extends GradleTaskHooker<ManifestProcessorTask> {
         @Override
         Set<ResolvedArtifactResult> getArtifacts() {
             Set<ResolvedArtifactResult> set = origin.getArtifacts()
+            Log.i("VAPlugin", "stripAarNames..." )
+            stripAarNames.each{
+                stripAarName -> Log.i("VAPlugin", stripAarName)
+            }
             set.removeIf(new Predicate<ResolvedArtifactResult>() {
                 @Override
                 boolean test(ResolvedArtifactResult result) {
-                    boolean ret = stripAarNames.contains("${result.id.componentIdentifier.displayName}")
+                    Log.i("VAPlugin", "displayName = " + "${result.id.componentIdentifier.displayName}")
+                    boolean ret = stripAarNames.contains("${result.id.componentIdentifier.displayName}") || "${result.id.componentIdentifier.displayName}".startsWith('com.tantan.library.virtualapk.xinyuan:core')
                     if (ret) {
                         Log.i 'MergeManifestsHooker', "Stripped manifest of artifact: ${result} -> ${result.file}"
                     }

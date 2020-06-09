@@ -1,1 +1,0 @@
-./gradlew virtualapk-gradle-plugin:clean virtualapk-gradle-plugin:build virtualapk-gradle-plugin:uploadArchives

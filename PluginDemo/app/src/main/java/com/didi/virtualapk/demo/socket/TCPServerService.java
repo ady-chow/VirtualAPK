@@ -1,5 +1,6 @@
 package com.didi.virtualapk.demo.socket;
 
+import com.didi.virtualapk.utils.MyUtils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,7 +11,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
 
-import com.didi.virtualapk.demo.utils.MyUtils;
 
 import android.app.Service;
 import android.content.Intent;

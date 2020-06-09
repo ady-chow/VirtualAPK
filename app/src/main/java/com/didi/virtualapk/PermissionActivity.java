@@ -4,9 +4,9 @@ import android.Manifest.permission;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /** Created by zhouxinyuan on 2020-06-08. */
 public class PermissionActivity extends Activity {

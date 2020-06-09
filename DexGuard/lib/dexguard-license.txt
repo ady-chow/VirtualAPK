@@ -1,0 +1,10 @@
+# DexGuard license file
+licensee              = Tantan Hong Kong Limited
+contact               = Oskar Levin
+contactEmail          = operations@tantanapp.com
+product               = DexGuard
+version               = 7.*,8.*
+package               = com.p1.mobile.putong,sg.omi
+expiryDate            = 2021-03-19
+maintenanceExpiryDate = 2021-03-19
+key                   = 0157a46305ce18655b6c59699d7b764601e7eae1bbbbeeffa430f7a5a96cf9f438310f415272189dd99a3c4f55b70bede6e7a3abe0fe15407c4767da6f900b04

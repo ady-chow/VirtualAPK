@@ -47,5 +47,9 @@ dependencies {
     compile 'com.android.tools.build:gradle:3.2.0'
 }
 
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
 
 apply from: 'gradle-mvn-push.gradle'

@@ -11,15 +11,15 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import com.didi.virtualapk.demo.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.didi.virtualapk.demo.socket.TCPClientActivity;
 import java.util.List;
+import sg.omi.R;
 
 public class BookManagerActivity extends AppCompatActivity {
 
@@ -135,7 +135,7 @@ public class BookManagerActivity extends AppCompatActivity {
     startActivityForResult(
         new Intent()
             .setComponent(
-                new ComponentName("com.didi.virtualapk", "com.didi.virtualapk.PermissionActivity")),
+                new ComponentName("com.p1.mobile.putong", "com.didi.virtualapk.PermissionActivity")),
         0x123);
   }
 

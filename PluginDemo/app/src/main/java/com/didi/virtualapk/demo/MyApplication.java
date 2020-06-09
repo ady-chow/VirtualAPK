@@ -4,8 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Process;
 import android.util.Log;
-import com.didi.virtualapk.demo.utils.MyUtils;
 import com.didi.virtualapk.internal.PluginContext;
+import com.didi.virtualapk.utils.MyUtils;
 
 public class MyApplication extends Application {
 

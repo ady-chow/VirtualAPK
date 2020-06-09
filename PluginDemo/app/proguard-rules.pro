@@ -37,6 +37,7 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
+-keep public class * extends android.database.sqlite.SQLiteOpenHelper
 -keep public class com.android.vending.licensing.ILicensingService
 -dontnote com.android.vending.licensing.ILicensingService
 
@@ -121,6 +122,9 @@
 -keep class com.didi.virtualapk.internal.VAInstrumentation { *; }
 -keep class com.didi.virtualapk.internal.PluginContentResolver { *; }
 -keep class com.didi.virtualapk.internal.PluginContext { *; }
+-keep class com.didi.virtualapk.utils.MyUtils { *; }
+-keep class com.didi.virtualapk.demo.aidl.* { *; }
+
 
 -dontwarn com.didi.virtualapk.**
 -dontwarn android.**

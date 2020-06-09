@@ -23,8 +23,8 @@ import android.content.IContentProvider;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Keep;
 
+import androidx.annotation.Keep;
 import com.didi.virtualapk.PluginManager;
 import com.didi.virtualapk.delegate.RemoteContentProvider;
 

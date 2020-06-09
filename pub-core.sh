@@ -1,0 +1,1 @@
+./gradlew CoreLibrary:clean CoreLibrary:build CoreLibrary:uploadArchives
