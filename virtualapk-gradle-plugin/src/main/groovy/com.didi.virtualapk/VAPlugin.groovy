@@ -222,7 +222,8 @@ class VAPlugin extends BasePlugin {
             throw new InvalidUserDataException(err.toString())
         }
 
-        File hostMapping = new File(hostLocalDir, "build/VAHost/mapping.txt")
+        File hostMapping = new File(hostLocalDir, "build/outputs/mapping/release/mapping.txt")
+        Log.i("VAPlugin", "hostMapping exists " + hostMapping.exists())
         if (hostMapping.exists()) {
             def dst = new File(hostDir, "mapping.txt")
             use(FileBinaryCategory) {
@@ -233,11 +234,11 @@ class VAPlugin extends BasePlugin {
         AppPlugin appPlugin = project.plugins.findPlugin(AppPlugin)
         ProjectOptions projectOptions = Reflect.on(appPlugin).field('projectOptions').get()
         // 330 此处已经无效了，永远为 true
-        if (!Build.isSupportVersion(Build.VERSION_CODE.V3_3_X)) {
-            if (projectOptions.get(BooleanOption.ENABLE_DEX_ARCHIVE)) {
-                throw new InvalidUserDataException("Can't using incremental dexing mode, please add 'android.useDexArchive=false' in gradle.properties of :${project.name}.")
-            }
-        }
+//        if (!Build.isSupportVersion(Build.VERSION_CODE.V3_3_X)) {
+//            if (projectOptions.get(BooleanOption.ENABLE_DEX_ARCHIVE)) {
+//                throw new InvalidUserDataException("Can't using incremental dexing mode, please add 'android.useDexArchive=false' in gradle.properties of :${project.name}.")
+//            }
+//        }
 //        project.ext.set('android.useDexArchive', false)
 
         Log.i("VAPlugin", "checkConfig finish")
@@ -253,7 +254,16 @@ class VAPlugin extends BasePlugin {
         @Override
         void registerTaskHookers() {
             android.applicationVariants.all { ApplicationVariantImpl appVariant ->
+                if (!appVariant.buildType.name.equalsIgnoreCase("release") && !appVariant.buildType.name.equalsIgnoreCase("debug")) {
+                    return
+                }
+
+                if(appVariant.name.contains("intl") || appVariant.name.contains("64")) {
+                    return
+                }
+
                 Log.i("VAPlugin", "buildType = " + appVariant.buildType.name + ", appVariant.name = " + appVariant.name)
+
 
                 registerTaskHooker(instantiator.newInstance(PrepareDependenciesHooker, project, appVariant))
                 registerTaskHooker(instantiator.newInstance(MergeAssetsHooker, project, appVariant))

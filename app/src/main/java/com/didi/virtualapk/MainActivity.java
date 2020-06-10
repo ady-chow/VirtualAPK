@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Loaded plugin from apk: " + apk);
       } catch (Exception e) {
         e.printStackTrace();
+        Log.e(TAG, e.toString());
       }
     } else {
       try {
