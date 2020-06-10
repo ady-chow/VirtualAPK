@@ -2,3 +2,72 @@ include ':app'
 include ':CoreLibrary'
 include ':AndroidStub'
 include ':virtualapk-gradle-plugin'
+include ':putong-common'
+include ':libraries'
+
+include ':common:android'
+include ':common:animation-engine'
+include ':common:client-tracking'
+include ':common:database'
+include ':common:dbinspector'
+include ':common:flagkit'
+include ':common:download'
+include ':common:memory'
+include ':common:network'
+include ':common:push'
+include ':common:push-fcm'
+include ':common:shortcut'
+include ':common:shortcutbadger'
+include ':common:sqlite-android'
+include ':common:supertooltip'
+include ':common:utils'
+include ':common:views'
+include ':common:config'
+include ':common:push-jiguang'
+include ':common:push-getui'
+include ':common:push-huawei'
+include ':common:push-oppo'
+include ':common:push-xiaomi'
+include ':common:push-vivo'
+
+include ':spinspector:sharedpreferenceinspector'
+project(':spinspector:sharedpreferenceinspector').projectDir = new File('./PluginTT/spinspector/sharedpreferenceinspector')
+include ':material-date-picker'
+project(':material-date-picker').projectDir = new File('./PluginTT/material-date-picker')
+include ':wheel-data-picker'
+project(':wheel-data-picker').projectDir = new File('./PluginTT/wheel-data-picker')
+include ':long_link'
+project(':long_link').projectDir = new File('./PluginTT/long_link')
+include ':plugin_i'
+project(':plugin_i').projectDir = new File('./PluginTT/plugin_i')
+include ':serverannotations'
+project(':serverannotations').projectDir = new File('./PluginTT/serverannotations')
+include ':material-edit-text:library'
+project(':material-edit-text:library').projectDir = new File('./PluginTT/material-edit-text/library')
+
+project(':putong-common').projectDir = new File('./PluginTT/putong-common')
+project(':libraries').projectDir = new File('./PluginTT/libraries')
+project(':common:android').projectDir = new File('./PluginTT/common/android')
+project(':common:animation-engine').projectDir = new File('./PluginTT/common/animation-engine')
+project(':common:client-tracking').projectDir = new File('./PluginTT/common/client-tracking')
+project(':common:database').projectDir = new File('./PluginTT/common/database')
+project(':common:dbinspector').projectDir = new File('./PluginTT/common/dbinspector')
+project(':common:flagkit').projectDir = new File('./PluginTT/common/flagkit')
+project(':common:download').projectDir = new File('./PluginTT/common/download')
+project(':common:memory').projectDir = new File('./PluginTT/common/memory')
+project(':common:network').projectDir = new File('./PluginTT/common/network')
+project(':common:push').projectDir = new File('./PluginTT/common/push')
+project(':common:push-fcm').projectDir = new File('./PluginTT/common/push-fcm')
+project(':common:shortcut').projectDir = new File('./PluginTT/common/shortcut')
+project(':common:shortcutbadger').projectDir = new File('./PluginTT/common/shortcutbadger')
+project(':common:sqlite-android').projectDir = new File('./PluginTT/common/sqlite-android')
+project(':common:supertooltip').projectDir = new File('./PluginTT/common/supertooltip')
+project(':common:utils').projectDir = new File('./PluginTT/common/utils')
+project(':common:views').projectDir = new File('./PluginTT/common/views')
+project(':common:config').projectDir = new File('./PluginTT/common/config')
+project(':common:push-jiguang').projectDir = new File('./PluginTT/common/push-jiguang')
+project(':common:push-getui').projectDir = new File('./PluginTT/common/push-getui')
+project(':common:push-huawei').projectDir = new File('./PluginTT/common/push-huawei')
+project(':common:push-oppo').projectDir = new File('./PluginTT/common/push-oppo')
+project(':common:push-xiaomi').projectDir = new File('./PluginTT/common/push-xiaomi')
+project(':common:push-vivo').projectDir = new File('./PluginTT/common/push-vivo')

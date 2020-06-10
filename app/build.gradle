@@ -3,18 +3,19 @@ apply plugin: 'com.didi.virtualapk.host'
 apply plugin: 'dexguard'
 
 android {
-    compileSdkVersion VERSION_COMPILE_SDK
-    buildToolsVersion VERSION_BUILD_TOOLS
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.p1.mobile.putong"
-        minSdkVersion VERSION_MIN_SDK
-        targetSdkVersion VERSION_TARGET_SDK
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3
-        versionName "1.0.0"
+        versionName '1.0.0'
     }
     compileOptions {
-        sourceCompatibility SOURCE_COMPATIBILITY
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     signingConfigs {
@@ -26,16 +27,36 @@ android {
         }
     }
 
+    productFlavors {
+        local {
+            buildConfigField "boolean", "INTERNATIONAL", "false"
+        }
+        intl {
+            buildConfigField "boolean", "INTERNATIONAL", "true"
+        }
+    }
+    flavorDimensions("default")
+
     buildTypes {
         debug {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        unit {
+            multiDexEnabled true
+            matchingFallbacks = ['debug']
+        }
+
         release {
             signingConfig signingConfigs.release
             proguardFiles getDefaultDexGuardFile('dexguard-release.pro'), 'proguard-rules.pro'
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        qa {
+            matchingFallbacks = ['release']
         }
     }
 
@@ -56,5 +77,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
 //    implementation project(':CoreLibrary')
     implementation 'com.tantan.library.virtualapk.xinyuan:core:0.0.1-SNAPSHOT'
+    api project(':putong-common')
 
 }

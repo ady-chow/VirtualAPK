@@ -1,3 +1,5 @@
+apply from: 'PluginTT/library_config.gradle'
+
 buildscript {
     System.properties['com.android.build.gradle.overrideVersionCheck'] = 'true'
 
@@ -16,22 +18,313 @@ buildscript {
 
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
+        classpath 'com.tantanapp.gradle:code-detector:1.0.5'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.51"
     }
+    configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
 
 ext {
-    VERSION_COMPILE_SDK = 29
-    VERSION_BUILD_TOOLS = '29.0.3'
+    versionCode = 3
+    versionName = '1.0.0'
 
-    VERSION_MIN_SDK = 21
-    VERSION_TARGET_SDK = 29
+    compileSdkVersion = 29
+    buildToolsVersion = '29.0.3'
 
-    SOURCE_COMPATIBILITY = JavaVersion.VERSION_1_7
+    minSdkVersion = 21
+    targetSdkVersion = 29
+
+    targetCompatibility = 1.8
+    sourceCompatibility = 1.8
+
+    renderscriptTargetApi = 14
+    renderscriptSupportModeEnabled = true
+
+    useVectorDrawablesSupportLibrary = true
+
+    androidXVersion = '1.0.0'
+
+    gms = [
+            base    : '17.0.0',
+            ads     : "17.0.0",
+            maps    : '17.0.0',
+            location: '17.0.0',
+            places  : '2.3.0'
+    ]
+
+    firebase = [
+            messaging: '20.2.0',
+            analytics: '17.4.2'
+    ]
+
+    kotlin_version = '1.2.51'
+
+    libVersion = [
+            build_gradle                 : '3.2.0',
+
+            rxjava                       : '1.1.7',
+            rxjava_proguard_rules        : '1.1.7.0',
+
+            cosmos_effect_videoeffect    : '1.0.0-202004171054',
+            cosmos_effect_mmsvga         : '1.0.0-202004291617',
+            cosmos_mediax_recorder       : '2.2.5_122702',
+            cosmos_mediax_mncertification: '1.1.20190927.1048',
+            cosmos_mediax_baseutil       : '2.1.1-201908051141',
+
+
+            okhttp3                      : '3.12.6',
+            okhttp_urlconnection         : '3.12.6',
+            guava                        : '18.0',
+
+            fresco                       : '1.10.0',
+            fresco_animated_gif          : '1.10.0',
+            fresco_animated_webp         : '1.10.0',
+            fresco_webpsupport           : '1.10.0',
+
+            gson                         : '2.2.4',
+            jackson_core                 : '2.5.0',
+            mp4parser_isoparser          : '1.0.6',
+            spongycastle_core            : '1.54.0.0',
+
+            FFmpegMediaMetadataRetriever : '1.0.14',
+
+            protobuf_protoc              : '3.6.1',
+            protobuf_protobuf_java       : '3.6.1',
+
+            commons_io                   : '2.4',
+            injecter_annotation          : '0.0.1',
+            injecter_api                 : '0.0.1',
+            injecter_processors          : '0.0.1',
+            multidex                     : '2.0.0',
+            constraintlayout             : '1.1.3',
+
+            share_sdk                    : '0.1.4',
+
+
+            uniaccount_base              : '1.0.0',
+            mobile_quick_login           : '9.1.0'
+    ]
+
+    putongCommonLibVersion = [
+            umeng_common            : '2.1.0',
+            umeng_analytics         : '7.5.0',
+            umsdk_utdid             : '1.1.5.3',
+            umsdk_push              : '6.0.1',
+            anrwatchdog             : '1.3.0',
+            facebook_rebound        : '0.3.8',
+            facebook_stetho         : '1.5.0',
+            facebook_stetho_okhttp  : '1.5.0',
+            facebook_core           : '7.0.0',
+            facebook_login          : '7.0.0',
+            appsflyer               : '5.2.0',
+            apmem_tools_layouts     : '1.10',
+            wechat_sdk              : '5.4.3',
+
+            leakcanary_android      : '2.0-beta-4',
+
+            replugin_lib_host       : '1.8.2.3',
+            replugin_lib_plugin     : '1.4.6',
+
+            soloader                : '0.6.1.2',
+
+            fox_statistics          : '0.4.0',
+            oneid                   : '0.2.0',
+            zxing_library_cp        : '2.2',
+
+            beatles_monitor_crash   : '1.0.5.9',
+            beatles_monitor_anr     : '1.0.5.9',
+            beatles_monitor_native  : '1.0.5.9',
+            beatles_monitor_fps     : '1.0.5.9',
+            beatles_exception_report: '1.0.5.9',
+            beatles_plugin_log      : '1.0.5.9',
+            beatles_debug_tool      : '1.0.5',
+            httpdns                 : '1.0.1.1',
+            bottomsheet_core        : '1.0.0',
+            x5_webview              : '43646',
+            google_billing          : '2.1.0',
+
+    ]
+
+    mediaLibsVersion = [
+            ttplayer_arm64_version        : '0.0.4@aar',
+            ttplayer_armv7a_ersion        : '0.0.4@aar',
+            ttplayer_api_version          : '0.0.3',
+            ttplayer_java_version         : '0.0.3',
+
+            mediaproxy_api_version        : '0.0.2@aar',
+            mediaproxy_armv7a_version     : '0.0.1@aar',
+            mediaproxy_arm64_version      : '0.0.1@aar',
+
+            ttmp3recorder_version         : '0.0.4@aar',
+
+            ttmediacommon_version         : '0.0.3',
+
+            ttmediafacertification_version: '0.0.3',
+            ttmediartc_version            : '0.0.3',
+            ttlive                        : '0.0.1',
+            ttmediaeffect                 : '0.0.3',
+    ]
+
+    useArch = true
+    inTTPlayerProject = false
+
+    commonLibVersion = [
+            huawei_push: '2.6.1.301',
+            getui_push : '2.13.3.0',
+            jpush      : '3.5.6',
+            jcore      : '2.2.8',
+            jpush_gp   : '0.0.1',
+    ]
+
+    deps = [
+            legacy_support_v4            : "androidx.legacy:legacy-support-v4:$androidXVersion",
+            legacy_support_v13           : "androidx.legacy:legacy-support-v13:$androidXVersion",
+            appcompat                    : "androidx.appcompat:appcompat:$androidXVersion",
+            cardview                     : "androidx.cardview:cardview:$androidXVersion",
+            gridlayout                   : "androidx.gridlayout:gridlayout:$androidXVersion",
+            material                     : "com.google.android.material:material:$androidXVersion",
+            recyclerview                 : "androidx.recyclerview:recyclerview:$androidXVersion",
+            palette                      : "androidx.palette:palette:$androidXVersion",
+            annotation                   : "androidx.annotation:annotation:$androidXVersion",
+            core                         : "androidx.core:core:$androidXVersion",
+
+            gms_base                     : "com.google.android.gms:play-services-base:$gms.base",
+            gms_ads                      : "com.google.android.gms:play-services-ads-identifier:$gms.ads",
+            gms_maps                     : "com.google.android.gms:play-services-maps:$gms.maps",
+            gms_places                   : "com.google.android.libraries.places:places:$gms.places",
+            gms_location                 : "com.google.android.gms:play-services-location:$gms.location",
+
+
+
+            firebase_messaging           : "com.google.firebase:firebase-messaging:$firebase.messaging",
+            firebase_analytics           : "com.google.firebase:firebase-analytics:$firebase.analytics",
+
+
+
+            rxjava                       : "io.reactivex:rxjava:$libVersion.rxjava",
+            rxjava_proguard_rules        : "com.artemzin.rxjava:proguard-rules:$libVersion.rxjava_proguard_rules",
+
+            multidex                     : "androidx.multidex:multidex:$libVersion.multidex",
+            constraint_layout            : "androidx.constraintlayout:constraintlayout:$libVersion.constraintlayout",
+
+            cosmos_effect_videoeffect    : "com.cosmos.effect:videoeffect:$libVersion.cosmos_effect_videoeffect",
+            cosmos_effect_mmsvga         : "com.cosmos.effect:mmsvga:$libVersion.cosmos_effect_mmsvga",
+            cosmos_mediax_recorder       : "com.cosmos.mediax:recorder:$libVersion.cosmos_mediax_recorder",
+            cosmos_mediax_mncertification: "com.cosmos.mediax:mncertification:$libVersion.cosmos_mediax_mncertification",
+            cosmos_mediax_baseutil       : "com.cosmos.mediax:baseutil:$libVersion.cosmos_mediax_baseutil",
+
+
+
+            okhttp3                      : "com.squareup.okhttp3:okhttp:$libVersion.okhttp3",
+            okhttp_urlconnection         : "com.squareup.okhttp3:okhttp-urlconnection:$libVersion.okhttp_urlconnection",
+            guava                        : "com.google.guava:guava:$libVersion.guava",
+
+            fresco                       : "com.facebook.fresco:fresco:$libVersion.fresco",
+            fresco_animated_gif          : "com.facebook.fresco:animated-gif:$libVersion.fresco_animated_gif",
+            fresco_animated_webp         : "com.facebook.fresco:animated-webp:$libVersion.fresco_animated_webp",
+            fresco_webpsupport           : "com.facebook.fresco:webpsupport:$libVersion.fresco_webpsupport",
+
+            gson                         : "com.google.code.gson:gson:$libVersion.gson",
+            jackson_core                 : "com.fasterxml.jackson.core:jackson-core:$libVersion.jackson_core",
+            mp4parser_isoparser          : "com.googlecode.mp4parser:isoparser:$libVersion.mp4parser_isoparser",
+            spongycastle_core            : "com.madgag.spongycastle:core:$libVersion.spongycastle_core",
+
+
+            FFmpegMediaMetadataRetriever : "com.github.wseemann:FFmpegMediaMetadataRetriever:$libVersion.FFmpegMediaMetadataRetriever",
+
+            protobuf_protoc              : "com.google.protobuf:protoc:$libVersion.protobuf_protoc",
+            protobuf_protobuf_java       : "com.google.protobuf:protobuf-java:$libVersion.protobuf_protobuf_java",
+
+            kotlin_stdlib                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+
+            commons_io                   : "commons-io:commons-io:$libVersion.commons_io",
+            injecter_annotation          : "com.tantanapp.android:injecter-annotation:$libVersion.injecter_annotation",
+            injecter_api                 : "com.tantanapp.android:injecter-api:$libVersion.injecter_api",
+            injecter_processors          : "com.tantanapp.android:injecter-processors:$libVersion.injecter_processors",
+
+            share_sdk                    : "com.tantanapp.library:share-sdk:$libVersion.share_sdk",
+
+
+            uniaccount_base              : "com.tantanapp.third-part:uniaccount_base:$libVersion.uniaccount_base",
+            mobile_quick_login           : "com.tantanapp.third-part:mobile_quick_login:$libVersion.mobile_quick_login",
+
+            umeng_common            : "com.umeng.umsdk:common:$putongCommonLibVersion.umeng_common",
+            umeng_analytics         : "com.umeng.sdk:analytics:$putongCommonLibVersion.umeng_analytics",
+
+            umsdk_utdid             : "com.umeng.umsdk:utdid:$putongCommonLibVersion.umsdk_utdid",
+            umsdk_push              : "com.umeng.umsdk:push:$putongCommonLibVersion.umsdk_push",
+
+            anrwatchdog             : "com.github.anrwatchdog:anrwatchdog:$putongCommonLibVersion.anrwatchdog",
+
+            facebook_rebound        : "com.facebook.rebound:rebound:$putongCommonLibVersion.facebook_rebound",
+            facebook_stetho         : "com.facebook.stetho:stetho:$putongCommonLibVersion.facebook_stetho",
+            facebook_stetho_okhttp  : "com.facebook.stetho:stetho-okhttp3:$putongCommonLibVersion.facebook_stetho_okhttp",
+
+            facebook_core           : "com.facebook.android:facebook-core:$putongCommonLibVersion.facebook_core",
+            facebook_login          : "com.facebook.android:facebook-login:$putongCommonLibVersion.facebook_login",
+            appsflyer               : "com.appsflyer:af-android-sdk:$putongCommonLibVersion.appsflyer",
+            apmem_tools_layouts     : "org.apmem.tools:layouts:$putongCommonLibVersion.apmem_tools_layouts",
+            wechat_sdk              : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:$putongCommonLibVersion.wechat_sdk",
+
+
+            leakcanary_android      : "com.squareup.leakcanary:leakcanary-android:$putongCommonLibVersion.leakcanary_android",
+
+            replugin_lib_host       : "com.tantanapp.library:replugin-lib-host:$putongCommonLibVersion.replugin_lib_host",
+            replugin_lib_plugin     : "com.tantanapp.library:replugin-lib-plugin:$putongCommonLibVersion.replugin_lib_plugin",
+
+            soloader                : "com.tantanapp.library:soloader:$putongCommonLibVersion.soloader",
+
+            fox_statistics          : "com.tantanapp.library:fox-statistics:$putongCommonLibVersion.fox_statistics",
+            oneid                   : "com.tantanapp.library:oneid:$putongCommonLibVersion.oneid",
+            zxing_library_cp        : "cn.yipianfengye.android:zxing-library-cp:$putongCommonLibVersion.zxing_library_cp",
+
+
+            beatles_monitor_crash   : "com.tantanapp.library:beatles-monitor-crash:$putongCommonLibVersion.beatles_monitor_crash",
+            beatles_monitor_anr     : "com.tantanapp.library:beatles-monitor-anr:$putongCommonLibVersion.beatles_monitor_anr",
+            beatles_monitor_native  : "com.tantanapp.library:beatles-monitor-nat:$putongCommonLibVersion.beatles_monitor_native",
+            beatles_monitor_fps     : "com.tantanapp.library:beatles-monitor-fps:$putongCommonLibVersion.beatles_monitor_fps",
+            beatles_exception_report: "com.tantanapp.library:beatles-exception-report:$putongCommonLibVersion.beatles_exception_report",
+            beatles_plugin_log      : "com.tantanapp.library:beatles-plugin-log:$putongCommonLibVersion.beatles_plugin_log",
+            beatles_debug_tool      : "com.tantanapp.library:debug_tools:$putongCommonLibVersion.beatles_debug_tool",
+            httpdns                 : "com.tantanapp.library:httpdns:$putongCommonLibVersion.httpdns",
+            bottomsheet_core        : "com.tantanapp.library:bottomsheet:$putongCommonLibVersion.bottomsheet_core",
+
+            x5_webview              : "com.tencent.tbs.tbssdk:sdk:$putongCommonLibVersion.x5_webview",
+            google_billing          : "com.android.billingclient:billing:$putongCommonLibVersion.google_billing",
+
+            ttplayer_arm64        : useArch ? "com.tantanapp.media:ttplayer-arm64:$mediaLibsVersion.ttplayer_arm64_version" : project(':ijkplayer-arm64'),
+            ttplayer_armv7a       : useArch ? "com.tantanapp.media:ttplayer-armv7a:$mediaLibsVersion.ttplayer_armv7a_ersion" : project(':ijkplayer-armv7a'),
+            ttplayer_api          : useArch ? "com.tantanapp.media:ttplayer-api:$mediaLibsVersion.ttplayer_api_version" : project(':ttplayerapi'),
+            ttplayer_java         : useArch ? "com.tantanapp.media:ttplayer-java:$mediaLibsVersion.ttplayer_java_version" : project(':ijkplayer-java'),
+
+            ttmediaproxy_api      : useArch ? "com.tantanapp.media:mediaproxy-api:$mediaLibsVersion.mediaproxy_api_version" : project(':api'),
+            ttmediaproxy_armv7a   : useArch ? "com.tantanapp.media:mediaproxy-armv7a:$mediaLibsVersion.mediaproxy_armv7a_version" : project(':mediaproxy-arm64'),
+            ttmediaproxy_arm64    : useArch ? "com.tantanapp.media:mediaproxy-arm64:$mediaLibsVersion.mediaproxy_arm64_version" : project(':mediaproxy-armv7a'),
+
+            ttmp3recorder         : useArch ? "com.tantanapp.media:ttmp3recorder:$mediaLibsVersion.ttmp3recorder_version" : project(':putong-media:ttmedia-mp3recorder'),
+
+            ttmediacommon         : "com.tantanapp.media:ttmediacommon:$mediaLibsVersion.ttmediacommon_version",
+
+            ttmediafacertification: "com.tantanapp.media:ttmediafacertification:$mediaLibsVersion.ttmediafacertification_version",
+            ttmediartc            : "com.tantanapp.media:ttmediartc:$mediaLibsVersion.ttmediartc_version",
+            ttlive                : "com.tantanapp.media:ttlive:$mediaLibsVersion.ttlive",
+            ttmediaeffect         : "com.tantanapp.media:ttmediaeffect:$mediaLibsVersion.ttmediaeffect",
+
+            hms_push  : "com.huawei.android.hms:push:$commonLibVersion.huawei_push",
+            getui_push: "com.getui:sdk:$commonLibVersion.getui_push",
+            jpush     : "cn.jiguang.sdk:jpush:$commonLibVersion.jpush",
+            jcore     : "cn.jiguang.sdk:jcore:$commonLibVersion.jcore",
+            jpush_gp  : "com.tantanapp.library:jpush-google:$commonLibVersion.jpush_gp",
+    ]
 }
 
 allprojects {
     repositories {
-        flatDir { dirs "${rootProject.rootDir}/DexGuard/lib" }
+        flatDir {
+            dirs "${rootProject.rootDir}/DexGuard/lib"
+            dirs libraryDir
+        }
         mavenCentral()
         jcenter()
         google()

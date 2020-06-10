@@ -5,12 +5,12 @@ import com.google.common.base.Joiner
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion VERSION_COMPILE_SDK
-    buildToolsVersion VERSION_BUILD_TOOLS
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion VERSION_MIN_SDK
-        targetSdkVersion VERSION_TARGET_SDK
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
     }
@@ -21,7 +21,7 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility SOURCE_COMPATIBILITY
+        sourceCompatibility rootProject.ext.sourceCompatibility
     }
     lintOptions {
         abortOnError false
