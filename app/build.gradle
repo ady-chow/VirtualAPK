@@ -1,10 +1,51 @@
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.didi.virtualapk.host'
 apply plugin: 'dexguard'
 
+def flavor = getCurrentFlavor()
+def buildType = getCurrentBuildType()
+println("flavor = " + flavor + " buildType = " + buildType)
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+
+    Set<String> excludePaths = new HashSet<>()
+
+    println("removeIntlSoResource count:" + excludePaths.size())
+    removeSoResource(excludePaths)
+    println("removeSoResource count:" + excludePaths.size())
+
+    packagingOptions {
+        excludePaths.add('META-INF/LICENSE.txt')
+        excludePaths.add('META-INF/NOTICE.txt')
+        excludePaths.add('META-INF/NOTICE')
+        excludePaths.add('META-INF/LICENSE')
+        excludePaths.add('META-INF/DEPENDENCIES')
+        excludePaths.add('META-INF/MANIFEST.MF')
+        excludePaths.add('.readme')
+        // resolve "More than one file was found with OS independent path 'lib/armeabi-v7a/libmmssl.so'" problems
+        // libc++_shared.so and  libijksdl.so remain in app ,otherwise will cause crash when play audio and vedio
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libmmcrypto.so'
+        pickFirst '**/libmmssl.so'
+        pickFirst '**/libijksdl.so'
+        setExcludes(excludePaths)
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'LICENSE.txt'
+    }
+
+    packagingOptions {
+        doNotStrip "*/armeabi-v7a/libA3AEECD8.so"
+        doNotStrip "*/arm64-v8a/libA3AEECD8.so"
+    }
+
 
     defaultConfig {
         applicationId "com.p1.mobile.putong"
@@ -12,6 +53,31 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3
         versionName '1.0.0'
+        renderscriptTargetApi rootProject.ext.renderscriptTargetApi
+        renderscriptSupportModeEnabled rootProject.ext.renderscriptSupportModeEnabled
+        vectorDrawables.useSupportLibrary = rootProject.ext.useVectorDrawablesSupportLibrary
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testBuildType "unit"
+
+
+//        buildConfigField "String", "MODULE_PATH", "\"/${project.getName().replace("b_", "").toLowerCase()}_module/module\""
+//        buildConfigField "String", "SERVICE_PATH", "\"/${project.getName().replace("b_", "").toLowerCase()}_service/service\""
+//        buildConfigField "String", "PAGE_PATH", "\"/${project.getName().replace("b_", "").toLowerCase()}_page/\""
+//        buildConfigField "String", "CONSTANT_PREFIX", "\"${project.getName().toLowerCase()}_\""
+
+        // 生成的文档路径 : build/generated/source/apt/(debug or release)/com/alibaba/android/arouter/docs/arouter-map-of-${moduleName}.json
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [INJECTER_MODULE_NAME: project.getName(), INEJCTER_GENERATE_DOC: "enable"]
+//            }
+//        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: "sg.omi",
+                JPUSH_APPKEY : "8e5cf4ca06728a452207f701 ", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL: "default", //暂时填写默认值即可.
+        ]
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -50,9 +116,11 @@ android {
         }
 
         release {
+            multiDexEnabled true
+            minifyEnabled false
             signingConfig signingConfigs.release
-            proguardFiles getDefaultDexGuardFile('dexguard-release.pro'), 'proguard-rules.pro'
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultDexGuardFile('dexguard-release.pro'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         qa {
@@ -65,18 +133,91 @@ android {
     }
 }
 
-configurations.all {
-    // check for updates every build
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
     implementation 'androidx.appcompat:appcompat:1.0.0'
 //    implementation project(':CoreLibrary')
-    implementation 'com.tantan.library.virtualapk.xinyuan:core:0.0.1-SNAPSHOT'
     api project(':putong-common')
+    localApi totalLibs()
+//    implementation deps.injecter_annotation
+//    annotationProcessor deps.injecter_processors
 
+}
+
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+
+    exclude group: 'io.reactivex', module: 'rxandroid'
+}
+
+/**
+ * 获取当次编译的Flavors。即当前执行assembleLocalDebug时，返回local
+ */
+def getCurrentFlavor() {
+    Gradle gradle = getGradle()
+    String taskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+    println("taskReqStr = " + taskReqStr)
+    Pattern pattern
+    pattern = Pattern.compile("(assemble|install|generate)(\\w+)(Release|Debug|DebugOpt|DebugRelease|Qa|Unit)")
+
+    Matcher matcher = pattern.matcher(taskReqStr)
+
+    if (matcher.find())
+        return matcher.group(2).toLowerCase()
+    else {
+        println "NO MATCH FOUND"
+        return ""
+    }
+}
+
+def getCurrentBuildType() {
+    Gradle gradle = getGradle()
+    String taskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+    Pattern pattern
+    pattern = Pattern.compile("(assemble|install|generate)(\\w+)(Release|Debug|DebugOpt|DebugRelease|Qa|Unit)")
+
+    Matcher matcher = pattern.matcher(taskReqStr)
+
+    if (matcher.find())
+        return matcher.group(3).toLowerCase()
+    else {
+        println "NO MATCH FOUND"
+        return ""
+    }
+}
+
+def removeSoResource(Set<String> excludePaths) {
+    def isRemoveSoResource = true
+    //工程里正式包不需要埋进去的so
+    if (isRemoveSoResource) {
+        String[] excludeFiles = ["libgnustl_shared.so", "libmdlog.so", "libmmcv_api_facerigv3.so", "libmmcv_api_hairseg.so",
+                                 "libxeengine.so",//xescene 0.1.20181205.2032  libarcore_sdk_c.so 在apk中
+                                 "libMOMOPitchShift.so",   // momoaudio-0.0.1201708040249
+                                 // momocv-3.2.1.201811101406
+                                 "libmmcv_base.so", "libgnustl_shared.so", "libmmcv_api_beauty.so", "libmmcv_api_faceprocessor.so", "libmmcv_api_bodylandmark.so", "libmmcv_api_facerig.so", "libmmcv_api_facerecognition.so",
+                                 "libmmcv_api_objecttracker.so", "libmmcv_api_handlandmark.so", "libmmcv_api_handgesture.so", "libmmcv_api_base.so", "libmmcv_api_facefeatures.so", "libmmcv_api_facerecog4pet.so", "libmmcv_api_facerigv2.so",
+                                 "libmmcv_api_segmentation.so", "libmmcv_api_videoprocessor.so", "libmmcv_api_arpet.so", "libmmcv_api_express.so", "libmmcv_api_facescanner.so", "libmmcv_api_mangaface.so", "libmmcv_api_objectdetect.so",
+                                 "libmmcv_api_datarecycle.so", "libmmcv_api_facegender.so", "libmmcv_api_faceregister.so", "libmmcv_api_barenessdetect.so", "libmmcv_api_beautyscore.so", "libmmcv_api_pickercover.so", "libmmcv_api_flowextent.so",
+                                 "libmmcv_api_imgloader.so", "libmmcv_api_imagequality.so",
+                                 // others
+                                 "libcache.so", "libcrypto.so", "libijkconfplayer.so", "libijkvodsdl.so", "libMediaEncoder.so", "libMediaMuxer.so", "libMediaUtils.so", "libpngdecoder.so",
+                                 "libssl.so", "libyuvutils.so", "libluaengine.so", "libwpadata.so", "libbroadcastchannel.so", "libijkffmpeg.so",
+                                 // momo live
+                                 "libaudioeffect.so", "libmediabase.so", "libapm-congressRender.so", "libcongressUtil.so", "libijkaudioprocess.so", "libMomoAudioMixer.so",
+                                 "libMomoSoundAndroid.so", "libijkconfplayer.so", "libliteavsdk.so", "libsaturn.so", "libstlport_shared.so", "libTRAECodec.so", "libtraeimp-rtmp.so",
+                                 "libAudioDecoder.so", "libclientcore.so", "libcodec_ttt.so", "libmyaudio_so.so", "libyuv_ttt.so", "libagora-crypto.so", "libagora-rtc-sdk-jni.so", "libvideoprp.so"]
+        String[] excludeABIs = ['armeabi-v7a', 'arm64-v8a']
+        excludeABIs.each { abi ->
+            excludeFiles.each { solibrary ->
+                if (abi.equalsIgnoreCase('arm64-v8a') && (solibrary.equalsIgnoreCase("libcache.so"))) {
+                    return
+                }
+                excludePaths.add("lib" + File.separator + abi + File.separator + solibrary)
+            }
+        }
+    }
 }

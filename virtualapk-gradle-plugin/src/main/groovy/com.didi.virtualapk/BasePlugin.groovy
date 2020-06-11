@@ -92,7 +92,7 @@ public abstract class BasePlugin implements Plugin<Project> {
                     }
 
                     TaskFactoryCompat.configure(taskFactory, "assemblePlugin", action)
-                } else if ('debug' == variant.buildType.name) {
+                } /*else if ('debug' == variant.buildType.name) {
                     String variantAssembleTaskName = variant.variantData.scope.getTaskName('assemble', 'Plugin')
                     def final variantPluginTaskName = variantAssembleTaskName
                     final def configAction = new AssemblePlugin.ConfigAction(project, variant)
@@ -107,12 +107,12 @@ public abstract class BasePlugin implements Plugin<Project> {
                     }
 
                     TaskFactoryCompat.configure(taskFactory, "assembleDebugPlugin", action)
-                }
+                }*/
             }
         }
 
         project.task('assemblePlugin', dependsOn: "assembleRelease", group: 'build', description: 'Build plugin apk')
-        project.task('assembleDebugPlugin', dependsOn: "assembleDebug", group: 'build', description: 'Build debug plugin apk')
+//        project.task('assembleDebugPlugin', dependsOn: "assembleDebug", group: 'build', description: 'Build debug plugin apk')
     }
 
     String createPluginTaskName(String name) {
@@ -129,12 +129,12 @@ public abstract class BasePlugin implements Plugin<Project> {
         def startParameter = project.gradle.startParameter
         def targetTasks = startParameter.taskNames
 
-        def pluginTasks = ['assemblePlugin', 'assembleBeijingPlugin', 'assembleShanghaiPlugin', 'assembleDebugPlugin'] as List<String>
+        def pluginTasks = ['assemblePlugin', 'assembleBeijingPlugin', 'assembleShanghaiPlugin', 'assembleLocalPlugin'] as List<String>
 
         if (!appPlugin.variantManager.productFlavors.isEmpty()) {
             appPlugin.variantManager.variantScopes
                     .findAll {
-                        it.variantConfiguration.buildType.name == "release" || it.variantConfiguration.buildType.name == 'debug'
+                        it.variantConfiguration.buildType.name == "release" /*|| it.variantConfiguration.buildType.name == 'debug'*/
                     }
                     .forEach { VariantScope scope -> addTaskToListForScope(scope, pluginTasks) }
         }
@@ -163,6 +163,7 @@ public abstract class BasePlugin implements Plugin<Project> {
     @TypeChecked
     private void addTaskToListForScope(VariantScope scope, List<String> pluginTasks) {
         String variantName = scope.fullVariantName
+        Log.i("VAPlugin", "variantName = " + variantName + ", " + scope.variantData)
         def variantPluginTaskName = createPluginTaskName("assemble${variantName.capitalize()}Plugin".toString())
         pluginTasks.add(variantPluginTaskName)
     }

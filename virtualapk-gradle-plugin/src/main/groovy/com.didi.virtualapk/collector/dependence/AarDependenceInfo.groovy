@@ -99,6 +99,10 @@ class AarDependenceInfo extends DependenceInfo {
      * @return package name of this library
      */
     public String getPackage() {
+        if(library.projectVariant == null){
+            Log.i("VAPlugin", "project variant is null, " + library.name)
+            return null
+        }
         File manifest = getLibManifestFile()
         Log.i 'AarDependenceInfo', "Found [${library.resolvedCoordinates}]'s manifest file: ${manifest}"
         def xmlManifest = new XmlParser().parse(manifest)

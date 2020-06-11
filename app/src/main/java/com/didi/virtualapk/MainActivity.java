@@ -102,24 +102,25 @@ public class MainActivity extends AppCompatActivity {
 
       // test Activity and Service
       Intent intent = new Intent();
-      intent.setClassName(this, "com.didi.virtualapk.demo.aidl.BookManagerActivity");
+//      intent.setClassName(this, "com.didi.virtualapk.demo.aidl.BookManagerActivity");
+      intent.setClassName(this, "com.p1.mobile.putong.ui.splash.SplashProxyAct");
       startActivity(intent);
 
       // test ContentProvider
-      Uri bookUri = Uri.parse("content://com.didi.virtualapk.demo.book.provider/book");
-      LoadedPlugin plugin = PluginManager.getInstance(this).getLoadedPlugin(pkg);
-      bookUri = PluginContentResolver.wrapperUri(plugin, bookUri);
-
-      Cursor bookCursor =
-          getContentResolver().query(bookUri, new String[] {"_id", "name"}, null, null, null);
-      if (bookCursor != null) {
-        while (bookCursor.moveToNext()) {
-          int bookId = bookCursor.getInt(0);
-          String bookName = bookCursor.getString(1);
-          Log.d("ryg", "query book:" + bookId + ", " + bookName);
-        }
-        bookCursor.close();
-      }
+//      Uri bookUri = Uri.parse("content://com.didi.virtualapk.demo.book.provider/book");
+//      LoadedPlugin plugin = PluginManager.getInstance(this).getLoadedPlugin(pkg);
+//      bookUri = PluginContentResolver.wrapperUri(plugin, bookUri);
+//
+//      Cursor bookCursor =
+//          getContentResolver().query(bookUri, new String[] {"_id", "name"}, null, null, null);
+//      if (bookCursor != null) {
+//        while (bookCursor.moveToNext()) {
+//          int bookId = bookCursor.getInt(0);
+//          String bookName = bookCursor.getString(1);
+//          Log.d("ryg", "query book:" + bookId + ", " + bookName);
+//        }
+//        bookCursor.close();
+//      }
     } else if (v.getId() == R.id.about) {
       showAbout();
     } else if (v.getId() == R.id.webview) {

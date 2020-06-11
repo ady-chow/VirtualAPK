@@ -91,13 +91,13 @@ public class AXmlEditor extends AssetEditor {
     }
 
     def setPackageId(final int pp, final Map idMaps) {
-        Log.i("VAPlugin", "setPackageId");
+//        Log.i("VAPlugin", "setPackageId");
         def xml = readChunkHeader()
         if (xml.type != ResType.RES_XML_TYPE) {
             return false
         }
 
-        Log.i("VAPlugin", "pp = " + Integer.toHexString(pp) + ", size = " + xml.size + ", idMaps = " + formatMap(idMaps))
+//        Log.i("VAPlugin", "pp = " + Integer.toHexString(pp) + ", size = " + xml.size + ", idMaps = " + formatMap(idMaps))
 
         setPackageIdRecursive(pp, idMaps, xml.size)
         close()

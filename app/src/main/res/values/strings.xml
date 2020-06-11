@@ -4,4 +4,9 @@
     <string name="about">关于</string>
     <string name="webview">Append WebView</string>
     <string name="about_detail">VirtualAPK 是一款由滴滴出行研发的 Android 插件化框架，项目地址：https://github.com/didi/VirtualAPK</string>
+
+
+    <string name="facebook_app_id">350461505345910</string>
+    <!--<string name="facebook_app_id">407465776312149</string>-->
+    <string name="fb_login_protocol_scheme">fb350461505345910</string>
 </resources>

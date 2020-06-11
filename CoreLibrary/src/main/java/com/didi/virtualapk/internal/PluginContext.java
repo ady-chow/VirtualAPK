@@ -20,6 +20,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -81,6 +82,11 @@ public class PluginContext extends ContextWrapper {
   @Override
   public PackageManager getPackageManager() {
     return this.mPlugin.getPackageManager();
+  }
+
+  @Override
+  public ApplicationInfo getApplicationInfo() {
+    return this.mPlugin.getApplicationInfo();
   }
 
   @Override

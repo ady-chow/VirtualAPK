@@ -185,7 +185,12 @@ class ProcessResourcesHooker extends GradleTaskHooker<ProcessAndroidResources> {
         vaContext.splitRJavaFile = splitRSourceFile
 
         vaContext.retainedAarLibs.each {
+            Log.i("VAPlugin", "it = " + it)
             def aarPackage = it.package
+            if(aarPackage == null){
+                return
+            }
+            Log.i("VAPlugin", "aarPackage = " + aarPackage)
             def rJavaFile = new File(sourceOutputDir, "${aarPackage.replace('.'.charAt(0), File.separatorChar)}${File.separator}R.java")
             aapt.generateRJava(rJavaFile, aarPackage, it.aarResources, it.aarStyleables)
             Log.i 'ProcessResourcesHooker', "Updated R.java: ${rJavaFile.absoluteFile}"

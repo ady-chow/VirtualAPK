@@ -12,6 +12,7 @@ public class VAApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        Log.d("ady", "attachBaseContext: host base = "+ base);
         long start = System.currentTimeMillis();
         PluginManager.getInstance(base).init();
         Log.d("ryg", "use time:" + (System.currentTimeMillis() - start));

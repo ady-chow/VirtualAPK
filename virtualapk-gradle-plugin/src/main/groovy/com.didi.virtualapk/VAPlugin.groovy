@@ -80,7 +80,7 @@ class VAPlugin extends BasePlugin {
                 configuration.resolutionStrategy { ResolutionStrategy resolutionStrategy ->
                     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
 
-                        Log.i("VAPlugin", "eachDependency isBuildingPlugin = " + isBuildingPlugin)
+//                        Log.i("VAPlugin", "eachDependency isBuildingPlugin = " + isBuildingPlugin)
 
                         if (!isBuildingPlugin) {
                             return
@@ -134,7 +134,7 @@ class VAPlugin extends BasePlugin {
         virtualApk.hostDependenceFile = new File(hostDir, "versions.txt")
 
         project.afterEvaluate {
-            Log.i("VAPlugin", "afterEvaluate isBuildingPlugin = " + isBuildingPlugin)
+//            Log.i("VAPlugin", "afterEvaluate isBuildingPlugin = " + isBuildingPlugin)
             if (!isBuildingPlugin) {
                 return
             }
@@ -254,13 +254,13 @@ class VAPlugin extends BasePlugin {
         @Override
         void registerTaskHookers() {
             android.applicationVariants.all { ApplicationVariantImpl appVariant ->
-                if (!appVariant.buildType.name.equalsIgnoreCase("release") && !appVariant.buildType.name.equalsIgnoreCase("debug")) {
+                if (!appVariant.buildType.name.equalsIgnoreCase("release")/* && !appVariant.buildType.name.equalsIgnoreCase("debug")*/) {
                     return
                 }
 
-                if(appVariant.name.contains("intl") || appVariant.name.contains("64")) {
-                    return
-                }
+//                if(appVariant.name.contains("intl") || appVariant.name.contains("64")) {
+//                    return
+//                }
 
                 Log.i("VAPlugin", "buildType = " + appVariant.buildType.name + ", appVariant.name = " + appVariant.name)
 
