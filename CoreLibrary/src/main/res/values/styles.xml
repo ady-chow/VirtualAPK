@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <style name="Theme.P1.Light.Dialog" parent="Theme.AppCompat.Light.Dialog">
+    <item name="colorPrimary">@color/tantan_orange</item>
+    <item name="colorPrimaryDark">@color/tantan_orange_dark</item>
+    <item name="colorAccent">@color/tantan_orange</item>
+  </style>
+
+  <style name="Theme.P1.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:windowAnimationStyle">@style/Animation.Activity</item>
+    <item name="colorAccent">@color/tantan_orange</item>
+    <item name="colorPrimary">@color/tantan_orange</item>
+    <item name="colorPrimaryDark">@color/tantan_orange_dark</item>
+    <item name="android:windowBackground">@color/white</item>
+    <item name="android:colorBackground">@color/white</item>
+    <item name="android:dialogTheme">@style/Theme.P1.Light.Dialog</item>
+
+
+    <!--<item name="actionBarItemBackground">@color/black</item>-->
+    <!--<item name="android:actionBarItemBackground">@color/black</item>-->
+
+    <item name="actionBarStyle">@style/Widget.P1.ActionBar.Solid</item>
+    <item name="android:statusBarColor" tools:ignore="NewApi">@color/tantan_orange_status_dark
+    </item>
+    <item name="android:actionModeBackground">@color/tantan_orange</item>
+  </style>
+
+  <style name="Theme.P1.Light.DarkActionBar.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="colorControlNormal">#bdbdbd</item>
+  </style>
+
+  <style name="Widget.P1.ActionBar.Solid" parent="Widget.AppCompat.ActionBar.Solid">
+    <item name="background">@color/tantan_orange</item>
+  </style>
+
+  <style name="Theme.P1.Light.DarkActionBar.NoActionBar.CustomTransition">
+    <item name="android:windowBackground">@color/transparent</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowIsTranslucent">true</item>
+  </style>
+
+  <style name="Animation.Activity">
+    <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>
+    <item name="android:activityOpenExitAnimation">@anim/slide_out_to_left</item>
+    <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left</item>
+    <item name="android:activityCloseExitAnimation">@anim/slide_out_to_right</item>
+    <item name="android:taskOpenEnterAnimation">@anim/task_open_enter</item>
+    <item name="android:taskOpenExitAnimation">@anim/task_open_exit</item>
+    <item name="android:taskCloseEnterAnimation">@anim/task_close_enter</item>
+    <item name="android:taskCloseExitAnimation">@anim/task_close_exit</item>
+    <item name="android:taskToFrontEnterAnimation">@anim/task_open_enter</item>
+    <item name="android:taskToFrontExitAnimation">@anim/task_open_exit</item>
+    <item name="android:taskToBackEnterAnimation">@anim/task_close_enter</item>
+    <item name="android:taskToBackExitAnimation">@anim/task_close_exit</item>
+    <item name="android:fragmentOpenEnterAnimation">@animator/fragment_open_enter</item>
+    <item name="android:fragmentOpenExitAnimation">@animator/fragment_open_exit</item>
+    <item name="android:fragmentCloseEnterAnimation">@animator/fragment_close_enter</item>
+    <item name="android:fragmentCloseExitAnimation">@animator/fragment_close_exit</item>
+    <item name="android:fragmentFadeEnterAnimation">@animator/fragment_fade_enter</item>
+    <item name="android:fragmentFadeExitAnimation">@animator/fragment_fade_exit</item>
+  </style>
+
+  <style name="Animation">
+
+  </style>
+</resources>

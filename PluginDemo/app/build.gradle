@@ -49,7 +49,7 @@ dependencies {
     // the following aars are also compiled in host project, so they will be filterd when build plugin apk.
     // but, wo can still visit their Class and Resources.
     implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'com.tantan.library.virtualapk.xinyuan:core:0.0.2-SNAPSHOT'
+    implementation 'com.tantan.library.virtualapk.xinyuan:core:0.0.5-SNAPSHOT'
 }
 
 apply plugin: 'com.didi.virtualapk.plugin'

@@ -12,7 +12,11 @@
         <!-- Stub Activities -->
         <activity android:exported="false" android:name=".A$1" android:launchMode="standard"/>
         <activity android:exported="false" android:name=".A$2" android:launchMode="standard"
-            android:theme="@android:style/Theme.Translucent" />
+            android:theme="@style/Theme.P1.Light.DarkActionBar.NoActionBar.CustomTransition">
+            <meta-data
+              android:name="windowIsTranslucent"
+              android:value="true" />
+        </activity>
 
         <!-- Stub Activities -->
         <activity android:exported="false" android:name=".B$1" android:launchMode="singleTop"/>
