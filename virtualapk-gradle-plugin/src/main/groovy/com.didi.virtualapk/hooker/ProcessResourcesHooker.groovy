@@ -77,7 +77,7 @@ class ProcessResourcesHooker extends GradleTaskHooker<ProcessAndroidResources> {
     }
 
     void repackage(ProcessAndroidResources par, File apFile) {
-        Log.i("VAPlugin", "repackage")
+        Log.i("VAPlugin", "repackage new")
         def resourcesDir = new File(apFile.parentFile, Files.getNameWithoutExtension(apFile.name))
 
         /*
@@ -164,6 +164,7 @@ class ProcessResourcesHooker extends GradleTaskHooker<ProcessAndroidResources> {
      *
      */
     def updateRJava(Aapt aapt, File sourceOutputDir) {
+        Log.i("VAPlugin", "updateRJava")
         File vaBuildDir = vaContext.getBuildDir(scope)
         File backupDir = new File(vaBuildDir, "origin/r")
 

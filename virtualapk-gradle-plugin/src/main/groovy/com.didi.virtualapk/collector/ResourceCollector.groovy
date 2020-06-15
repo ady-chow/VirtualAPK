@@ -9,6 +9,7 @@ import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Lists
 import org.gradle.api.Project
+import com.didi.virtualapk.utils.Log
 
 /**
  * Collect all(host+plugin) resources&styleables in the APK and reassign the resource ID
@@ -54,6 +55,7 @@ class ResourceCollector {
     List<StyleableEntry> pluginStyleables = Lists.newArrayList()
 
     public ResourceCollector(Project project, ProcessAndroidResources par) {
+        Log.i("VAPlugin", "ResourceCollector")
 
         this.project = project
         virtualApk = project.virtualApk
@@ -69,22 +71,28 @@ class ResourceCollector {
      * Perform resource collection and ID redistribution
      */
     def collect() {
+        Log.i("VAPlugin", "collect")
 
         //1、First, collect all resources by parsing the R symbol file.
+        Log.i("VAPlugin", "parseResEntries")
         parseResEntries(allRSymbolFile, allResources, allStyleables)
 
         //2、Then, collect host resources by parsing the host apk R symbol file, should be stripped.
+        Log.i("VAPlugin", "parseResEntries")
         parseResEntries(hostRSymbolFile, hostResources, hostStyleables)
 
         //3、Compute the resources that should be retained in the plugin apk.
+        Log.i("VAPlugin", "filterPluginResources")
         filterPluginResources()
 
         //4、Reassign the resource ID. If the resource entry exists in host apk, the reassign ID
         //   should be same with value in host apk; If the resource entry is owned by plugin project,
         //   then we should recalculate the ID value.
+        Log.i("VAPlugin", "reassignPluginResourceId")
         reassignPluginResourceId()
 
         //5、Collect all the resources in the retained AARs, to regenerate the R java file that uses the new resource ID
+        Log.i("VAPlugin", "I want this")
         vaContext.retainedAarLibs.each {
             gatherReservedAarResources(it)
         }
@@ -163,6 +171,7 @@ class ResourceCollector {
      * Set the packageId specified in the build.gradle file, and reassign type&entry ID
      */
     private void reassignPluginResourceId() {
+        Log.i('VAPlugin', 'vaContext.packageName = ' + vaContext.packageName + ", " + virtualApk.packageId)
 
         def resourceIdList = []
         pluginResources.keySet().each { String resType ->
@@ -214,13 +223,39 @@ class ResourceCollector {
      * @param aarDependenceInfo aar dependence info
      */
     def gatherReservedAarResources(AarDependenceInfo aarDependenceInfo) {
+        Log.i("VAPlugin", "aarDependenceInfo = " + aarDependenceInfo.package)
         def aarResKeys = aarDependenceInfo.resourceKeys
+        if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
+            Log.i("VAPlugin", "aarResKeys = {" + aarResKeys + "}")
+        }
         if (aarResKeys.empty) return
 
         allResources.keySet().each { resType ->
+            if(aarDependenceInfo.package == 'com.p1.mobile.putong.account') {
+                Log.i("VAPlugin", "pluginResources = " + pluginResources.get(resType))
+            }
             allResources.get(resType).each { resEntry ->
+                if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
+                    Log.i("VAPlugin", "aarRes = " + "${resType}:${resEntry.resourceName}")
+                }
                 if (aarResKeys.contains("${resType}:${resEntry.resourceName}")) {
-                    aarDependenceInfo.aarResources.put(resType, resEntry)
+                    def found = false
+                    pluginResources.get(resType).each {
+                        if(it.resourceName ==  resEntry.resourceName){
+                            found = true
+                            if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
+                                Log.i("VAPlugin", "[found] aarResId = " + it.hexNewResourceId)
+                            }
+                            aarDependenceInfo.aarResources.put(resType, it)
+                            return
+                        }
+                    }
+                    if(!found){
+                        if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
+                            Log.i("VAPlugin", "[!found] aarResId = " + resEntry.hexNewResourceId)
+                        }
+                        aarDependenceInfo.aarResources.put(resType, resEntry)
+                    }
                 }
             }
         }

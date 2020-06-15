@@ -72,10 +72,12 @@ class AarDependenceInfo extends DependenceInfo {
      * @return set of a combination of resource type and name
      */
     public Set<String> getResourceKeys() {
-
         def resKeys = [] as Set<String>
-
         def rSymbol = getFile(library.symbolFile, TaskManager.DIR_BUNDLES, library.projectVariant, SdkConstants.FN_RESOURCE_TEXT)
+        if(!rSymbol.exists()){
+            rSymbol = FileUtils.join(intermediatesDir, 'symbols', 'local', 'release', SdkConstants.FN_RESOURCE_TEXT)
+        }
+        Log.i("VAPlugin", "symbolFile = " + rSymbol.path)
         if (rSymbol.exists()) {
             Log.i 'AarDependenceInfo', "Found [${library.resolvedCoordinates}]'s symbol file: ${rSymbol}"
             rSymbol.eachLine { line ->

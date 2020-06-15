@@ -82,4 +82,9 @@ class ResourceEntry {
         result = 31 * result + resourceName.hashCode()
         return result
     }
+
+    public String toString() {
+        return "[" + resourceType + ":" + resourceName + ":" + Integer.toHexString(resourceId) + ":" + Integer.toHexString(newResourceId) + "]"
+    }
+
 }
