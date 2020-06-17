@@ -222,7 +222,7 @@ class VAPlugin extends BasePlugin {
             throw new InvalidUserDataException(err.toString())
         }
 
-        File hostMapping = new File(hostLocalDir, "build/outputs/mapping/release/mapping.txt")
+        File hostMapping = new File(hostLocalDir, "build/outputs/mapping/local/release/mapping.txt")
         Log.i("VAPlugin", "hostMapping exists " + hostMapping.exists())
         if (hostMapping.exists()) {
             def dst = new File(hostDir, "mapping.txt")
