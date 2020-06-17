@@ -96,6 +96,9 @@ android {
     productFlavors {
         local {
             buildConfigField "boolean", "INTERNATIONAL", "false"
+            ndk {
+                abiFilter "armeabi-v7a"
+            }
         }
         intl {
             buildConfigField "boolean", "INTERNATIONAL", "true"
