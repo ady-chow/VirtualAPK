@@ -50,7 +50,7 @@ ext {
             ads     : "17.0.0",
             maps    : '17.0.0',
             location: '17.0.0',
-            places  : '2.3.0'
+            places  : '2.0.0'
     ]
 
     firebase = [
@@ -132,12 +132,14 @@ ext {
             oneid                   : '0.2.0',
             zxing_library_cp        : '2.2',
 
-            beatles_monitor_crash   : '1.0.5.9',
-            beatles_monitor_anr     : '1.0.5.9',
-            beatles_monitor_native  : '1.0.5.9',
-            beatles_monitor_fps     : '1.0.5.9',
-            beatles_exception_report: '1.0.5.9',
-            beatles_plugin_log      : '1.0.5.9',
+            beatles_monitor_crash   : '1.0.6.2',
+            beatles_monitor_anr     : '1.0.6.2',
+            beatles_monitor_native  : '1.0.6.2',
+            beatles_monitor_fps     : '1.0.6.2',
+            beatles_monitor_memory  : '1.0.6.2',
+            beatles_monitor_block   : '1.0.6.2',
+            beatles_exception_report: '1.0.6.2',
+            beatles_plugin_log      : '1.0.6.2',
             beatles_debug_tool      : '1.0.5',
             httpdns                 : '1.0.1.1',
             bottomsheet_core        : '1.0.0',
@@ -158,12 +160,12 @@ ext {
 
             ttmp3recorder_version         : '0.0.4@aar',
 
-            ttmediacommon_version         : '0.0.3',
+            ttmediacommon_version         : '0.0.4',
 
             ttmediafacertification_version: '0.0.3',
             ttmediartc_version            : '0.0.3',
-            ttlive                        : '0.0.1',
-            ttmediaeffect                 : '0.0.3',
+            ttlive                        : '0.0.2.1',
+            ttmediaeffect                 : '0.0.4',
     ]
 
     useArch = true
@@ -284,6 +286,8 @@ ext {
             beatles_monitor_anr     : "com.tantanapp.library:beatles-monitor-anr:$putongCommonLibVersion.beatles_monitor_anr",
             beatles_monitor_native  : "com.tantanapp.library:beatles-monitor-nat:$putongCommonLibVersion.beatles_monitor_native",
             beatles_monitor_fps     : "com.tantanapp.library:beatles-monitor-fps:$putongCommonLibVersion.beatles_monitor_fps",
+            beatles_monitor_memory  : "com.tantanapp.library:beatles-monitor-memory:$putongCommonLibVersion.beatles_monitor_memory",
+            beatles_monitor_block   : "com.tantanapp.library:beatles-monitor-block:$putongCommonLibVersion.beatles_monitor_block",
             beatles_exception_report: "com.tantanapp.library:beatles-exception-report:$putongCommonLibVersion.beatles_exception_report",
             beatles_plugin_log      : "com.tantanapp.library:beatles-plugin-log:$putongCommonLibVersion.beatles_plugin_log",
             beatles_debug_tool      : "com.tantanapp.library:debug_tools:$putongCommonLibVersion.beatles_debug_tool",
