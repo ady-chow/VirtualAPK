@@ -120,10 +120,10 @@ android {
 
         release {
             multiDexEnabled true
-            minifyEnabled false
+            minifyEnabled true
             signingConfig signingConfigs.release
 //            proguardFiles getDefaultDexGuardFile('dexguard-release.pro'), 'proguard-rules.pro'
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-host.pro'
         }
 
         qa {

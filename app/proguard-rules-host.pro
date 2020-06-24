@@ -16,6 +16,29 @@
 #   public *;
 #}
 
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
+-dontoptimize
+-dontshrink
+-allowaccessmodification
+-keepattributes *Annotation*
+-keepattributes Exceptions
+-keepattributes JavascriptInterface
+-keepattributes LineNumberTable
+-keepattributes Signature
+-keepattributes SourceFile
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.view.View
+-keep public class com.android.vending.licensing.ILicensingService
+
 
 # this is for keep the method name unique, so we can use the map file to get readable
 
@@ -28,7 +51,7 @@
 
 -keepattributes SourceFile, LineNumberTable
 
-#-useuniqueclassmembernames
+-useuniqueclassmembernames
 
 # android
 
@@ -166,7 +189,7 @@
 
 -keepnames public class * extends androidx.fragment.app.Fragment
 
--repackageclasses l
+-repackageclasses abc
 
 #-allowaccessmodification
 
@@ -1004,6 +1027,7 @@ native <methods>;
 
 -keep class com.didi.virtualapk.internal.VAInstrumentation { *; }
 -keep class com.didi.virtualapk.internal.PluginContentResolver { *; }
+-keep class * extends android.app.Application {*;}
 
 -dontwarn com.didi.virtualapk.**
 -dontwarn android.**
