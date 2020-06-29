@@ -51,6 +51,7 @@ import android.os.Build;
 import android.os.Process;
 import android.os.UserHandle;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.didi.virtualapk.PluginManager;
@@ -223,6 +224,7 @@ public class LoadedPlugin {
         Map<ComponentName, ActivityInfo> receivers = new HashMap<ComponentName, ActivityInfo>();
         for (PackageParser.Activity receiver : this.mPackage.receivers) {
             receivers.put(receiver.getComponentName(), receiver.info);
+            Log.d("ady", "LoadedPlugin: receiver = " + receiver.getComponentName().getClassName());
     
             BroadcastReceiver br = BroadcastReceiver.class.cast(getClassLoader().loadClass(receiver.getComponentName().getClassName()).newInstance());
             for (PackageParser.ActivityIntentInfo aii : receiver.intents) {
