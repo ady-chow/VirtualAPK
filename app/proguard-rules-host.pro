@@ -29,6 +29,7 @@
 -keepattributes LineNumberTable
 -keepattributes Signature
 -keepattributes SourceFile
+-keepattributes EnclosingMethod
 
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Service
