@@ -272,6 +272,7 @@ class VAPlugin extends BasePlugin {
 //                registerTaskHooker(instantiator.newInstance(ShrinkResourcesHooker, project, appVariant))
                 registerTaskHooker(instantiator.newInstance(ProcessResourcesHooker, project, appVariant))
                 registerTaskHooker(instantiator.newInstance(ProguardHooker, project, appVariant))
+                registerTaskHooker(instantiator.newInstance(DexguardHooker, project, appVariant))
                 registerTaskHooker(instantiator.newInstance(DxTaskHooker, project, appVariant))
             }
         }

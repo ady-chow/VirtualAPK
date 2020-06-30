@@ -6,6 +6,7 @@ import com.android.build.gradle.internal.transforms.ProGuardTransform
 import com.didi.virtualapk.collector.dependence.AarDependenceInfo
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
+import com.didi.virtualapk.utils.Log
 
 /**
  * Apply host mapping file to maintain compatibility between the plugin and host apk.
@@ -38,6 +39,8 @@ class ProguardHooker extends GradleTaskHooker<TransformTask> {
      */
     @Override
     void beforeTaskExecute(TransformTask task) {
+
+        Log.i("VAPlugin", "ProguardHooker")
 
         def proguardTransform = task.transform as ProGuardTransform
 

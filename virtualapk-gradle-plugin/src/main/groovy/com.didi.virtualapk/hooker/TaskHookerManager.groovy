@@ -46,6 +46,7 @@ public abstract class TaskHookerManager {
 
         @Override
         void beforeExecute(Task task) {
+            Log.i('VAPlugin', 'task.name = ' + task.name + ', ' + (task in TransformTask))
 //            Log.i 'TaskHookerManager', "beforeExecute ${task.name} tid: ${Thread.currentThread().id} t: ${Thread.currentThread().name}"
             if (task.project == project) {
                 if (task in TransformTask) {
