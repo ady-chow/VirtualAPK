@@ -66,7 +66,7 @@ class DexguardHooker extends GradleTaskHooker<DexGuardTask> {
             task.injars(it.jarFile)
             if (it instanceof AarDependenceInfo) {
                 it.localJars.each {
-                    task.injars(it)
+                    task.libraryjars(it)
                 }
             }
         }
