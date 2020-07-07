@@ -77,7 +77,10 @@ class AarDependenceInfo extends DependenceInfo {
         if(!rSymbol.exists()){
             rSymbol = FileUtils.join(intermediatesDir, 'symbols', 'local', 'release', SdkConstants.FN_RESOURCE_TEXT)
         }
-        Log.i("VAPlugin", "symbolFile = " + rSymbol.path)
+//        if(!rSymbol.exists()){
+//            rSymbol = FileUtils.join(intermediatesDir, 'symbols', 'local', 'debug', SdkConstants.FN_RESOURCE_TEXT)
+//        }
+//        Log.i("VAPlugin", "symbolFile = " + rSymbol.path)
         if (rSymbol.exists()) {
             Log.i 'AarDependenceInfo', "Found [${library.resolvedCoordinates}]'s symbol file: ${rSymbol}"
             rSymbol.eachLine { line ->
@@ -102,7 +105,7 @@ class AarDependenceInfo extends DependenceInfo {
      */
     public String getPackage() {
         if(library.projectVariant == null){
-            Log.i("VAPlugin", "project variant is null, " + library.name)
+//            Log.i("VAPlugin", "project variant is null, " + library.name)
             return null
         }
         File manifest = getLibManifestFile()

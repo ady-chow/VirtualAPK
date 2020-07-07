@@ -171,7 +171,7 @@ class ResourceCollector {
      * Set the packageId specified in the build.gradle file, and reassign type&entry ID
      */
     private void reassignPluginResourceId() {
-        Log.i('VAPlugin', 'vaContext.packageName = ' + vaContext.packageName + ", " + virtualApk.packageId)
+//        Log.i('VAPlugin', 'vaContext.packageName = ' + vaContext.packageName + ", " + virtualApk.packageId)
 
         def resourceIdList = []
         pluginResources.keySet().each { String resType ->
@@ -223,37 +223,37 @@ class ResourceCollector {
      * @param aarDependenceInfo aar dependence info
      */
     def gatherReservedAarResources(AarDependenceInfo aarDependenceInfo) {
-        Log.i("VAPlugin", "aarDependenceInfo = " + aarDependenceInfo.package)
+//        Log.i("VAPlugin", "aarDependenceInfo = " + aarDependenceInfo.package)
         def aarResKeys = aarDependenceInfo.resourceKeys
-        if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
-            Log.i("VAPlugin", "aarResKeys = {" + aarResKeys + "}")
-        }
+//        if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
+//            Log.i("VAPlugin", "aarResKeys = {" + aarResKeys + "}")
+//        }
         if (aarResKeys.empty) return
 
         allResources.keySet().each { resType ->
-            if(aarDependenceInfo.package == 'com.p1.mobile.putong.account') {
-                Log.i("VAPlugin", "pluginResources = " + pluginResources.get(resType))
-            }
+//            if(aarDependenceInfo.package == 'com.p1.mobile.putong.account') {
+//                Log.i("VAPlugin", "pluginResources = " + pluginResources.get(resType))
+//            }
             allResources.get(resType).each { resEntry ->
-                if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
-                    Log.i("VAPlugin", "aarRes = " + "${resType}:${resEntry.resourceName}")
-                }
+//                if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
+//                    Log.i("VAPlugin", "aarRes = " + "${resType}:${resEntry.resourceName}")
+//                }
                 if (aarResKeys.contains("${resType}:${resEntry.resourceName}")) {
                     def found = false
                     pluginResources.get(resType).each {
                         if(it.resourceName ==  resEntry.resourceName){
                             found = true
-                            if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
-                                Log.i("VAPlugin", "[found] aarResId = " + it.hexNewResourceId)
-                            }
+//                            if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
+//                                Log.i("VAPlugin", "[found] aarResId = " + it.hexNewResourceId)
+//                            }
                             aarDependenceInfo.aarResources.put(resType, it)
                             return
                         }
                     }
                     if(!found){
-                        if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
-                            Log.i("VAPlugin", "[!found] aarResId = " + resEntry.hexNewResourceId)
-                        }
+//                        if(aarDependenceInfo.package == 'com.p1.mobile.putong.account'){
+//                            Log.i("VAPlugin", "[!found] aarResId = " + resEntry.hexNewResourceId)
+//                        }
                         aarDependenceInfo.aarResources.put(resType, resEntry)
                     }
                 }

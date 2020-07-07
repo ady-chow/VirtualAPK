@@ -10,8 +10,8 @@ buildscript {
     }
     dependencies {
         classpath ':dexguard:'
-        classpath 'com.android.tools.build:gradle:3.2.0'
-        classpath 'com.tantan.library.virtualapk.xinyuan:gradle:0.4.2-SNAPSHOT'
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.tantan.library.virtualapk.xinyuan:gradle:0.5.1-SNAPSHOT'
     }
 }
 

@@ -44,3 +44,4 @@ buildSrc
 PluginTT/*
 injector/*
 android-plugin/*
+app/apks

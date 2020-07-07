@@ -13,8 +13,8 @@ buildscript {
     }
     dependencies {
         classpath ':dexguard:'
-        classpath 'com.android.tools.build:gradle:3.2.0'
-        classpath 'com.tantan.library.virtualapk.xinyuan:gradle:0.4.2-SNAPSHOT'
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.tantan.library.virtualapk.xinyuan:gradle:0.5.1-SNAPSHOT'
 
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
@@ -61,7 +61,7 @@ ext {
     kotlin_version = '1.2.51'
 
     libVersion = [
-            build_gradle                 : '3.2.0',
+            build_gradle                 : '3.2.1',
 
             rxjava                       : '1.1.7',
             rxjava_proguard_rules        : '1.1.7.0',
@@ -75,7 +75,7 @@ ext {
 
             okhttp3                      : '3.12.6',
             okhttp_urlconnection         : '3.12.6',
-            guava                        : '18.0',
+            guava                        : '19.0',
 
             fresco                       : '1.10.0',
             fresco_animated_gif          : '1.10.0',

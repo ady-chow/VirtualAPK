@@ -211,7 +211,7 @@ public class VAHostPlugin implements Plugin<Project> {
     def collectAarResourceEntries(String aarVersion, String resPath, File mergeXml, final Map typeEntries) {
         final def merger = new XmlParser().parse(mergeXml)
         def filter = aarVersion == null ? {
-            it.@config == 'main' || it.@config == 'release'
+            it.@config == 'main' || it.@config == 'release' || it.@config == 'debug'
         } : {
             it.@config = aarVersion
         }

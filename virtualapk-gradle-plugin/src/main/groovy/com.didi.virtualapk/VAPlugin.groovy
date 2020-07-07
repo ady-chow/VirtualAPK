@@ -221,8 +221,10 @@ class VAPlugin extends BasePlugin {
             err.append("  need apply com.didi.virtualapk.host in build.gradle of host application \n")
             throw new InvalidUserDataException(err.toString())
         }
-
         File hostMapping = new File(hostLocalDir, "build/outputs/mapping/local/release/mapping.txt")
+        if(!hostMapping.exists()){
+            hostMapping = new File(hostLocalDir, "build/outputs/mapping/local/debug/mapping.txt")
+        }
         Log.i("VAPlugin", "hostMapping exists " + hostMapping.exists())
         if (hostMapping.exists()) {
             def dst = new File(hostDir, "mapping.txt")
@@ -231,9 +233,9 @@ class VAPlugin extends BasePlugin {
             }
         }
 
-        AppPlugin appPlugin = project.plugins.findPlugin(AppPlugin)
-        ProjectOptions projectOptions = Reflect.on(appPlugin).field('projectOptions').get()
-        // 330 此处已经无效了，永远为 true
+//        AppPlugin appPlugin = project.plugins.findPlugin(AppPlugin)
+//        ProjectOptions projectOptions = Reflect.on(appPlugin).field('projectOptions').get()
+//         330 此处已经无效了，永远为 true
 //        if (!Build.isSupportVersion(Build.VERSION_CODE.V3_3_X)) {
 //            if (projectOptions.get(BooleanOption.ENABLE_DEX_ARCHIVE)) {
 //                throw new InvalidUserDataException("Can't using incremental dexing mode, please add 'android.useDexArchive=false' in gradle.properties of :${project.name}.")
@@ -254,9 +256,9 @@ class VAPlugin extends BasePlugin {
         @Override
         void registerTaskHookers() {
             android.applicationVariants.all { ApplicationVariantImpl appVariant ->
-                if (!appVariant.buildType.name.equalsIgnoreCase("release")/* && !appVariant.buildType.name.equalsIgnoreCase("debug")*/) {
-                    return
-                }
+//                if (!appVariant.buildType.name.equalsIgnoreCase("release")/* && !appVariant.buildType.name.equalsIgnoreCase("debug")*/) {
+//                    return
+//                }
 
 //                if(appVariant.name.contains("intl") || appVariant.name.contains("64")) {
 //                    return
@@ -274,6 +276,7 @@ class VAPlugin extends BasePlugin {
                 registerTaskHooker(instantiator.newInstance(ProguardHooker, project, appVariant))
                 registerTaskHooker(instantiator.newInstance(DexguardHooker, project, appVariant))
                 registerTaskHooker(instantiator.newInstance(DxTaskHooker, project, appVariant))
+                registerTaskHooker(instantiator.newInstance(DesugarHooker, project, appVariant))
             }
         }
     }

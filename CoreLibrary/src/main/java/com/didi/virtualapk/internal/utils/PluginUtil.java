@@ -92,8 +92,43 @@ public class PluginUtil {
         return false;
     }
 
-    public static int getTheme(Context context, Intent intent) {
-        return PluginUtil.getTheme(context, PluginUtil.getComponent(intent));
+    public static int getSoftInputMode(Context context, ComponentName component) {
+        LoadedPlugin loadedPlugin = PluginManager.getInstance(context).getLoadedPlugin(component);
+
+        Log.d("ady", "getSoftInputMode: loadedPlugin = " + loadedPlugin);
+
+        if (null == loadedPlugin) {
+            return 0;
+        }
+
+        ActivityInfo info = loadedPlugin.getActivityInfo(component);
+        Log.d("ady", "getSoftInputMode: info = " + info);
+        if (null == info) {
+            return 0;
+        }
+
+        Log.d("ady", "getSoftInputMode: softInputMode = " + info.softInputMode);
+
+        return info.softInputMode;
+    }
+
+    public static int getConfigChanges(Context context, ComponentName component) {
+        LoadedPlugin loadedPlugin = PluginManager.getInstance(context).getLoadedPlugin(component);
+        Log.d("ady", "getConfigChanges: loadedPlugin = " + loadedPlugin);
+
+        if (null == loadedPlugin) {
+            return 0;
+        }
+
+        ActivityInfo info = loadedPlugin.getActivityInfo(component);
+        Log.d("ady", "getConfigChanges: info = " + info);
+        if (null == info) {
+            return 0;
+        }
+
+        Log.d("ady", "getConfigChanges: configChanges = " + info.configChanges);
+
+        return info.configChanges;
     }
 
     public static int getTheme(Context context, ComponentName component) {

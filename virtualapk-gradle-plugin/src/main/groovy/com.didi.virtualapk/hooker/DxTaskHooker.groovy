@@ -31,6 +31,9 @@ class DxTaskHooker extends GradleTaskHooker<TransformTask> {
      */
     @Override
     void beforeTaskExecute(TransformTask task) {
+        Log.i('VAPlugin', 'java version = '
+                + apkVariant.javaCompiler.sourceCompatibility + ','
+                + apkVariant.javaCompiler.targetCompatibility)
         task.inputs.files.each { input ->
 //            Log.i 'DxTaskHooker', "${task.name}: ${input.absoluteFile}"
             if(input.directory) {

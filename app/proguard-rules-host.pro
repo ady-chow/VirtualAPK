@@ -539,7 +539,7 @@ native <methods>;
 -keep class com.p1.mobile.longlink.msg.** {*;}
 -keep class com.google.protobuf.Any {*;}
 
--multidex
+#-multidex
 
 -keepnames class com.p1.mobile.putong.app.alive.PullAliveService
 

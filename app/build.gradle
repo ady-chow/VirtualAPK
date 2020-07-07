@@ -108,9 +108,10 @@ android {
 
     buildTypes {
         debug {
+            multiDexEnabled true
             minifyEnabled false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-host-debug.pro'
         }
 
         unit {
@@ -119,10 +120,10 @@ android {
         }
 
         release {
-//            multiDexEnabled true
-//            minifyEnabled true
+            multiDexEnabled true
+            minifyEnabled false
             signingConfig signingConfigs.release
-            proguardFiles getDefaultDexGuardFile('dexguard-release.pro'), 'proguard-rules-host.pro'
+//            proguardFiles getDefaultDexGuardFile('dexguard-release.pro'), 'proguard-rules-host.pro'
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-host.pro'
         }
 
@@ -140,7 +141,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 //    implementation project(':CoreLibrary')
     api project(':putong-common')
     localApi totalLibs()

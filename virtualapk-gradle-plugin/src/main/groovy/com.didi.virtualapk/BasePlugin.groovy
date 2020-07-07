@@ -92,7 +92,7 @@ public abstract class BasePlugin implements Plugin<Project> {
                     }
 
                     TaskFactoryCompat.configure(taskFactory, "assemblePlugin", action)
-                } /*else if ('debug' == variant.buildType.name) {
+                } else if ('debug' == variant.buildType.name) {
                     String variantAssembleTaskName = variant.variantData.scope.getTaskName('assemble', 'Plugin')
                     def final variantPluginTaskName = variantAssembleTaskName
                     final def configAction = new AssemblePlugin.ConfigAction(project, variant)
@@ -107,12 +107,12 @@ public abstract class BasePlugin implements Plugin<Project> {
                     }
 
                     TaskFactoryCompat.configure(taskFactory, "assembleDebugPlugin", action)
-                }*/
+                }
             }
         }
 
         project.task('assemblePlugin', dependsOn: "assembleRelease", group: 'build', description: 'Build plugin apk')
-//        project.task('assembleDebugPlugin', dependsOn: "assembleDebug", group: 'build', description: 'Build debug plugin apk')
+        project.task('assembleDebugPlugin', dependsOn: "assembleDebug", group: 'build', description: 'Build debug plugin apk')
     }
 
     String createPluginTaskName(String name) {
@@ -129,7 +129,7 @@ public abstract class BasePlugin implements Plugin<Project> {
         def startParameter = project.gradle.startParameter
         def targetTasks = startParameter.taskNames
 
-        def pluginTasks = ['assemblePlugin', 'assembleBeijingPlugin', 'assembleShanghaiPlugin', 'assembleLocalPlugin'] as List<String>
+        def pluginTasks = ['assemblePlugin', 'assembleBeijingPlugin', 'assembleShanghaiPlugin', 'assembleLocalPlugin', 'assembleDebugPlugin', 'assembleLocalDebugPlugin'] as List<String>
 
         if (!appPlugin.variantManager.productFlavors.isEmpty()) {
             appPlugin.variantManager.variantScopes
