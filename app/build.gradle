@@ -86,10 +86,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("../keystore/test.keystore")
-            storePassword "test123456"
-            keyAlias "test"
-            keyPassword "test123456"
+            storeFile file('../PluginTT/app/key.keystore')
+            storePassword 'ee6fbb36b0d8d0e31eb514a406d8e899414f04a19cebd0d06e482f16fcc8cab7'
+            keyAlias 'p1android'
+            keyPassword '779b5a0cc1c7e63d6c7090807e0f72f3da2f0f2240668469dd18522c063ed4c4'
         }
     }
 

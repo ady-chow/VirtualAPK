@@ -231,6 +231,10 @@ public class VAInstrumentation extends Instrumentation implements Handler.Callba
                 // set theme
                 activity.setTheme(activityInfo.theme);
 
+                // set label
+                Log.d("ady", "injectActivity: activity labelRes = 0x" + Integer.toHexString(activityInfo.labelRes));
+                activity.setTitle(activityInfo.labelRes);
+
 
                 // for native activity
                 ComponentName component = PluginUtil.getComponent(intent);
