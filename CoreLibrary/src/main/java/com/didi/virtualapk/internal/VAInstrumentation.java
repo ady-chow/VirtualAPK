@@ -215,22 +215,21 @@ public class VAInstrumentation extends Instrumentation implements Handler.Callba
                 reflector.field("mBase").set(plugin.createPluginContext(activity.getBaseContext()));
                 reflector.field("mApplication").set(plugin.getApplication());
 
-                // set screenOrientation
                 ActivityInfo activityInfo = plugin.getActivityInfo(PluginUtil.getComponent(intent));
+
+                // set config changes
+                Reflector.QuietReflector.with(activity).field("mConfigChangeFlags").set(activityInfo.configChanges);
+
+                // set screenOrientation
                 if (activityInfo.screenOrientation != ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
                     activity.setRequestedOrientation(activityInfo.screenOrientation);
                 }
-
-                Log.d("ady", "injectActivity: activityInfo.configChanges = " + activityInfo.configChanges);
-                Configuration configuration = new Configuration();
-                configuration.keyboard = activityInfo.configChanges & ActivityInfo.CONFIG_KEYBOARD;
-                configuration.keyboardHidden = activityInfo.configChanges & ActivityInfo.CONFIG_KEYBOARD_HIDDEN;
-                configuration.orientation = activityInfo.configChanges & ActivityInfo.CONFIG_ORIENTATION;
-                configuration.screenLayout = activityInfo.configChanges & ActivityInfo.CONFIG_SCREEN_LAYOUT;
-                Log.d("ady", "injectActivity: configuration.keyboard = " + configuration.keyboard);
-                Log.d("ady", "injectActivity: configuration.keyboardHidden = " + configuration.keyboardHidden);
-                Log.d("ady", "injectActivity: configuration.orientation = " + configuration.orientation);
-                Log.d("ady", "injectActivity: configuration.screenLayout = " + configuration.screenLayout);
+                // set softInputMode
+                if (activityInfo.softInputMode != 0) {
+                    activity.getWindow().setSoftInputMode(activityInfo.softInputMode);
+                }
+                // set theme
+                activity.setTheme(activityInfo.theme);
 
 
                 // for native activity
@@ -239,7 +238,6 @@ public class VAInstrumentation extends Instrumentation implements Handler.Callba
                 wrapperIntent.setClassName(component.getPackageName(), component.getClassName());
                 wrapperIntent.setExtrasClassLoader(activity.getClassLoader());
                 activity.setIntent(wrapperIntent);
-                activity.setTheme(activityInfo.theme);
             } catch (Exception e) {
                 Log.w(TAG, e);
             }
